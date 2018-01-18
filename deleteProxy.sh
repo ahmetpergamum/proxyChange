@@ -2,8 +2,8 @@
 USER="kullanici"
 PASSW="parola"
 
-sed -i "s/\/.*172/\/\/$USER:$PASSW@172/" /etc/environment
-sed -i "s/\/.*172/\/\/$USER:$PASSW@172/" /etc/wgetrc
-sed -i "s/\/.*172/\/\/$USER:$PASSW@172/" /etc/apt/apt.conf
-sed -i "s/\/.*172/\/\/$USER:$PASSW@172/" /root/.bashrc
-sed -i "s/\/.*172/\/\/$USER:$PASSW@172/" /root/.gitconfig
+sudo sed -i "s/\:\/\/.*@/\:\/\/$USER:$PASSW@/" /etc/environment
+sudo sed -i "s/\:\/\/.*@/\:\/\/$USER:$PASSW@/" /etc/wgetrc
+sudo sed -i "s/\:\/\/.*@/\:\/\/$USER:$PASSW@/" /etc/apt/apt.conf
+sed -i "s/\:\/\/.*@/\:\/\/$USER:$PASSW@/" $HOME/.bashrc
+sed -i "s/\:\/\/.*@/\:\/\/$USER:$PASSW@/" $HOME/.gitconfig

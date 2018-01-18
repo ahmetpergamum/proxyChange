@@ -1,5 +1,6 @@
 #!/bin/bash
 # proxy settings for environment, apt and wget
+echo "Script for changing proxy settings..."
 
 echo "Proxy Server Address:"
 read SERVER
@@ -10,8 +11,7 @@ read USERNAME
 echo "Proxy Password:"
 read -s PASSW
 
-
-FILE="~/.bashrc"
+FILE="$HOME/.bashrc"
 # # dosyada kullanici sifre iceren proxy patterni var mi
 grep "://.*@.*[0-9]:[0-9]" $FILE &> /dev/null
 # # varsa sadece kullanici adi sifre ve sunucu bilgilerini degistir
@@ -71,7 +71,7 @@ else
 	sudo sed -i "\$aAcquire::socks::proxy \"socks://$USERNAME:$PASSW@$SERVER:$PORT/\"\;" $FILE
 fi
 
-FILE="~/.gitconfig"
+FILE="$HOME/.gitconfig"
 # dosyada kullanici sifre iceren proxy patterni var mi
 grep "://.*@.*[0-9]:[0-9]" $FILE &> /dev/null
 # varsa sadece kullanici adi sifre ve sunucu bilgilerini degistir
@@ -79,8 +79,8 @@ if [ $? -eq 0 ]
 then
 	sudo sed -i "s/\:\/\/.*@.*$/\:\/\/$USERNAME:$PASSW\@$SERVER:$PORT\//" $FILE
 else
-	git config --global http.proxy http://$USERNAME:$PASSW@$SERVER:$PORT
-	git config --global https.proxy https://$USERNAME:$PASSW@$SERVER:$PORT
+	git config --global http.proxy http://$USERNAME:$PASSW@$SERVER:$PORT/
+	git config --global https.proxy https://$USERNAME:$PASSW@$SERVER:$PORT/
 fi
 
 echo "Done..."
