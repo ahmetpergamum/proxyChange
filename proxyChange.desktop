@@ -1,8 +1,8 @@
 [Desktop Entry]
-Name=ChangeProxy
-GenericName=ChangeProxy
+Name=proxyChange
+GenericName=proxyChange
 Comment=Some description about your script
-Exec=/root/scripts/changeProxyStartup.sh
+Exec=/usr/bin/proxyChangeStartup.sh
 Terminal=false
 Type=Application
 X-GNOME-Autostart-enabled=true
