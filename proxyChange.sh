@@ -2,6 +2,11 @@
 # proxy settings for environment, apt and wget
 echo "Script for changing proxy settings..."
 
+#cleaning the old settings
+sudo sed -i '/proxy\|PROXY/d' /etc/environment /etc/wgetrc /etc/apt/apt.conf $HOME/.bashrc
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
 echo "Proxy Server Address:"
 read SERVER
 echo "Proxy Server Port:"
@@ -45,6 +50,7 @@ if [ $? -eq 0 ]
 then
 	sudo sed -i "s/\:\/\/.*@.*$/\:\/\/$USERNAME:$PASSW\@$SERVER:$PORT\/\"/" $FILE
 else
+	echo "# proxy configuration" | sudo tee -a $FILE > /dev/null
 	sudo sed -i "\$ahttp_proxy=\"http://$USERNAME:$PASSW@$SERVER:$PORT/\"" $FILE
 	sudo sed -i "\$ahttps_proxy=\"http://$USERNAME:$PASSW@$SERVER:$PORT/\"" $FILE
 	sudo sed -i "\$aftp_proxy=\"http://$USERNAME:$PASSW@$SERVER:$PORT/\"" $FILE
@@ -64,7 +70,7 @@ if [ $? -eq 0 ]
 then
 	sudo sed -i "s/\:\/\/.*@.*$/\:\/\/$USERNAME:$PASSW\@$SERVER:$PORT\/\"\;/" $FILE
 else
-	echo "# apt configuration file" | sudo tee -a $FILE > /dev/null
+	echo "# proxy configuration" | sudo tee -a $FILE > /dev/null
 	sudo sed -i "\$aAcquire::http::proxy \"http://$USERNAME:$PASSW@$SERVER:$PORT/\"\;" $FILE
 	sudo sed -i "\$aAcquire::https::proxy \"https://$USERNAME:$PASSW@$SERVER:$PORT/\"\;" $FILE
 	sudo sed -i "\$aAcquire::ftp::proxy \"ftp://$USERNAME:$PASSW@$SERVER:$PORT/\"\;" $FILE
